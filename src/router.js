@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "./App";
+import App, { loader as appLoader } from "./App";
 import Welcome from "./components/Welcome";
 import NoteDetails from "./components/NoteDetails";
 
@@ -7,6 +7,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    loader: appLoader,
     children: [
       {
         index: true,

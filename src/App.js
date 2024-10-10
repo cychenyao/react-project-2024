@@ -2,15 +2,13 @@ import "./App.css";
 import NoteList from "./components/NoteList";
 import SearchNote from "./components/SearchNote";
 import NoteDetails from "./components/NoteDetails";
-import { Outlet } from "react-router-dom";
+import { Outlet,useLoaderData } from "react-router-dom";
 
+export async function loader() {
+  return fetch("/api/notes");
+}
 function App() {
-  const notes = [
-    { id: 1, title: "笔记 1", content: "这是笔记 1", likes: 0 },
-    { id: 2, title: "笔记 2", content: "这是笔记 2", likes: 0 },
-    { id: 3, title: "笔记 3", content: "这是笔记 3", likes: 0 },
-    { id: 4, title: "笔记 4", content: "这是笔记 4", likes: 0 },
-  ];
+  const notes = useLoaderData();
 
   return (
     <div className="container">
