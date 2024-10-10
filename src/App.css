@@ -1,31 +1,34 @@
 .container {
   margin: 0 auto;
   display: grid;
-  place-content: center;
-  gap: 12px;
-  height: 100vh;
-  background-color: hsl(220, 33%, 15%);
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+  background-color: var(--background-color);
   color: rgb(0, 217, 255);
-  font-weight: 800;
 }
 
-.container > div {
-  display: grid;
-  gap: 12px;
-  align-items: center;
+.logo {
+  font-size: 24px;
 }
 
-.fade-enter {
-  opacity: 0;
+.sidebar {
+  padding: 24px;
 }
-.fade-enter-active {
-  opacity: 1;
-  transition: opacity 1000ms;
+
+.container > main {
+  padding: 24px;
+  background-color: hsl(220, 26%, 18%);
 }
-.fade-exit {
-  opacity: 1;
+
+.addNoteBtn {
+  margin-top: 24px;
 }
-.fade-exit-active {
-  opacity: 0;
-  transition: opacity 1000ms;
+
+.loadingProgress {
+  position: fixed;
+  width: 100%;
+  height: 6px;
+  top: 0;
+  left: 0;
+  right: 0;
 }

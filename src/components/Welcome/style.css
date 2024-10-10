@@ -1,0 +1,15 @@
+.welcomePage {
+  display: grid;
+  place-content: center;
+  row-gap: 24px;
+  height: 100vh;
+}
+
+.welcomePage > h1 {
+  font-size: 48px;
+}
+
+.welcomePage > p {
+  font-size: 20px;
+  text-align: center;
+}

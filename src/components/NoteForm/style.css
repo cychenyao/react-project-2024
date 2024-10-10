@@ -1,0 +1,26 @@
+.addNote {
+  width: 100%;
+}
+
+.addNote h2 {
+  margin-bottom: 12px;
+}
+
+.addNote form {
+  display: grid;
+  gap: 24px;
+}
+
+.addNote > form > button {
+  justify-self: start;
+}
+
+.formActions {
+  display: flex;
+  gap: 8px;
+}
+
+.formActions button:nth-child(2) {
+  background: none;
+  border: 1px solid var(--primary-color);
+}

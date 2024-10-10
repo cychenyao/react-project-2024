@@ -1,72 +1,26 @@
-import { useRef, useState } from "react";
-import {
-  CSSTransition,
-  SwitchTransition,
-  TransitionGroup,
-} from "react-transition-group";
 import "./App.css";
-import { useEffect } from "react";
-import { createRef } from "react";
-import "animate.css";
-
+import NoteList from "./components/NoteList";
+import SearchNote from "./components/SearchNote";
+import NoteDetails from "./components/NoteDetails";
+import {Outlet} from "react-router-dom";
 function App() {
-  const [listData, setListData] = useState([
-    { id: 1, value: 1, nodeRef: useRef(null) },
-    { id: 2, value: 2, nodeRef: useRef(null) },
-    { id: 3, value: 3, nodeRef: useRef(null) },
-  ]);
+  const notes = [];
 
   return (
-    <main className="container">
-      <ul>
-        <TransitionGroup>
-          {listData.map(({ id, value, nodeRef }) => (
-            <CSSTransition
-              key={id}
-              nodeRef={nodeRef}
-              classNames={
-                {
-                  enterActive: "animate__animated animate__bounceIn",
-                  exitActive: "animate__animated animate__bounceOut",
-                }
-              }
-              timeout={1000}
-            >
-              <li ref={nodeRef}>
-                {value}{" "}
-                <button
-                  onClick={() =>
-                    setListData((data) => data.filter((item) => item.id !== id))
-                  }
-                  style={{
-                    padding: "4px",
-                    marginLeft: "8px",
-                    border: "4px",
-                    backgroundColor: "transparent",
-                  }}
-                >
-                  删除
-                </button>
-              </li>
-            </CSSTransition>
-          ))}
-        </TransitionGroup>
-      </ul>
-      <button
-        onClick={() => {
-          setListData((data) => [
-            ...data,
-            {
-              id: data.length + 1,
-              value: data.length + 1,
-              nodeRef: createRef(null),
-            },
-          ]);
-        }}
-      >
-        添加项目
-      </button>
-    </main>
+    <div className="container">
+      <aside className="sidebar">
+        <h1 className="logo">我的笔记本</h1>
+        <SearchNote />
+        <button type="submit" className="addNoteBtn">
+          添加笔记
+        </button>
+        <NoteList notes={notes} />
+      </aside>
+
+      <main className="mainContent">
+        <Outlet />
+      </main>
+    </div>
   );
 }
 

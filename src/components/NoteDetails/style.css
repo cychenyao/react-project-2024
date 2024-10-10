@@ -1,0 +1,20 @@
+.noteTitle {
+  margin-bottom: 12px;
+  font-size: 48px;
+}
+
+.noteActions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.noteActions a,
+.noteActions button {
+  color: white;
+  border: 1px solid var(--primary-color);
+  border-radius: 2px;
+  padding: 2px 4px;
+  font-size: 14px;
+  background: none;
+}

@@ -1,15 +1,43 @@
 .noteList {
   margin: 24px 0;
   display: grid;
-  row-gap: 48px;
-  width: 40vw;
+  row-gap: 24px;
 }
 
-.note h2 {
-  font-weight: normal;
-  margin-bottom: 12px;
+.note {
+  position: relative;
 }
 
-.note article {
+.note a {
+  font-size: 20px;
+  color: rgb(0, 217, 255);
+  font-weight: 600;
+  display: inline-block;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.contentExerpt {
   color: hsl(183, 100%, 95%);
+}
+
+/* 激活状态下设置整个笔记项目 .note 的背景高亮 */
+.note:has(a.active)::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  left: -24px;
+  right: -24px;
+  background: hsl(183, 100%, 95%, 0.1);
+}
+
+/* 激活状态下设置链接字体为橘色 */
+.note a.active {
+  color: var(--secondary-color);
+}
+
+.note a.pending {
+  /* pending 状态只设置颜色为橘色 */
+  color: var(--secondary-color);
 }

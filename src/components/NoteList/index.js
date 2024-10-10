@@ -3,16 +3,16 @@ import "./style.css";
 
 function NoteList({ notes }) {
   return (
-    <div className="noteList">
+    <nav className="noteList">
       {notes.map((note) => (
         <div key={note.id} className="note">
-          <h2>{note.title}</h2>
-          <article>
-            <p>{note.content}</p>
-          </article>
+          <a href={`notes/${note.id}`}>{note.title}</a>
+          <p className="contentExerpt">
+            {note.content.substring(0, 20) + "..."}
+          </p>
         </div>
       ))}
-    </div>
+    </nav>
   );
 }
 
