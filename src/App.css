@@ -3,19 +3,29 @@
   display: grid;
   place-content: center;
   gap: 12px;
-  min-height: 100vh;
+  height: 100vh;
   background-color: hsl(220, 33%, 15%);
   color: rgb(0, 217, 255);
   font-weight: 800;
-  padding: 48px 0;
-}
-
-.light {
-  background-color: hsl(220, 10%, 99%);;
 }
 
 .container > div {
   display: grid;
   gap: 12px;
   align-items: center;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 1000ms;
 }

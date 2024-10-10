@@ -1,43 +1,43 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { CSSTransition, SwitchTransition } from "react-transition-group";
 import "./App.css";
-import ProductListing from "./components/ProductListing";
+import { useEffect } from "react";
+function App() {
+  const [current, setCurrent] = useState(1);
+  const component1Ref = useRef(null);
+  const component2Ref = useRef(null);
 
-export default function App() {
-  const [products, setProducts] = useState([
-    { id: 1, name: "苹果", price: 1 },
-    { id: 2, name: "香蕉", price: 5 },
-    { id: 3, name: "菠萝", price: 10 },
-  ]);
+  let nodeRef = component1Ref;
 
-  const [isDark, setIsDark] = useState(true);
-
-  function addProduct() {
-    const newProduct = {
-      id: Math.random(),
-      name: `产品 ${products.length + 1}`,
-      price: Math.floor(Math.random() * 10) + 1,
-    };
-
-    setProducts([...products, newProduct]);
+  let content = "😜";
+  if (current === 1) {
+    nodeRef = component1Ref;
+    content = "😜";
+  }
+  if (current === 2) {
+    nodeRef = component2Ref;
+    content = "😆";
   }
 
   return (
-    <main className={isDark ? "container" : "container light"}>
-      <div>
-        <h1>产品列表</h1>
-        <ProductListing products={products} />
-        <button onClick={addProduct}>添加产品</button>
-        <label htmlFor="toggleTheme">
-          改变主题{" "}
-          <input
-            id="toggleTheme"
-            type="checkbox"
-            checked={isDark}
-            value={isDark}
-            onChange={(e) => setIsDark(e.target.checked)}
-          />
-        </label>
-      </div>
+    <main className="container">
+      <button onClick={() => setCurrent((current) => (current === 1 ? 2 : 1))}>
+        切换
+      </button>
+      <SwitchTransition mode="out-in">
+        <CSSTransition
+          key={current}
+          nodeRef={nodeRef}
+          classNames="fade"
+          addEndListener={(done) => {
+            nodeRef.current.addEventListener("transitionend", done, false);
+          }}
+        >
+          <div ref={nodeRef}>{content}</div>
+        </CSSTransition>
+      </SwitchTransition>
     </main>
   );
 }
+
+export default App;
