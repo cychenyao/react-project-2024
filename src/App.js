@@ -7,6 +7,8 @@ import {
 import "./App.css";
 import { useEffect } from "react";
 import { createRef } from "react";
+import "animate.css";
+
 function App() {
   const [listData, setListData] = useState([
     { id: 1, value: 1, nodeRef: useRef(null) },
@@ -22,7 +24,12 @@ function App() {
             <CSSTransition
               key={id}
               nodeRef={nodeRef}
-              classNames="fade"
+              classNames={
+                {
+                  enterActive: "animate__animated animate__bounceIn",
+                  exitActive: "animate__animated animate__bounceOut",
+                }
+              }
               timeout={1000}
             >
               <li ref={nodeRef}>
