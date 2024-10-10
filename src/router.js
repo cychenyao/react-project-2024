@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Welcome from "./components/Welcome";
+import NoteDetails from "./components/NoteDetails";
 
 const router = createBrowserRouter([
   {
@@ -10,6 +11,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Welcome />,
+      },
+      {
+        path: "notes/:noteId",
+        element: <NoteDetails />,
       },
     ],
   },
