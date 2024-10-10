@@ -1,8 +1,14 @@
-const { createProxyMiddleware } = require("http-proxy-middleware")
-
+// 3. 创建 src/setupProxy.js
+// 4. yarn add http-proxy-middleware
+// 5. 配置代理
+const { createProxyMiddleware } = require("http-proxy-middleware");
 module.exports = function (app) {
-    // 配置一个代理,只要带/api的请求
-    app.use("/api", createProxyMiddleware({ target: "http://localhost:8080", 
-        changeOrigin: true, 
-        pathRewrite: {"^/api":""} }))
-}
+  app.use(
+    "/api/notes",
+    createProxyMiddleware({
+      target: "http://localhost:8080",
+      changeOrigin: true,
+      pathRewrite: { "^/api": "" }, // remove /api prefix when requesting
+    })
+  );
+};

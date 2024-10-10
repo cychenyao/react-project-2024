@@ -14,7 +14,7 @@ const notes = [
 // enable CORS
 app.use(function (req, res, next) {
   // 2. 限制 CORS，并演示一下 CORS 的错误
-  // res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"

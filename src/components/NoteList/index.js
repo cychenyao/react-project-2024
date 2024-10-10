@@ -1,13 +1,21 @@
 import React from "react";
 import "./style.css";
-import {Link} from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function NoteList({ notes }) {
+  console.log("!!!!" + notes)
   return (
-    <nav className="noteList">
+    notes && notes.length > 0 && <nav className="noteList">
       {notes.map((note) => (
         <div key={note.id} className="note">
-          <Link to={`notes/${note.id}`}>{note.title}</Link>
+          <NavLink
+            to={`notes/${note.id}`}
+            className={({ isActive, isPending }) =>
+              isActive ? "active" : isPending ? "pending" : ""
+            }
+          >
+            {note.title}
+          </NavLink>
           <p className="contentExerpt">
             {note.content.substring(0, 20) + "..."}
           </p>
