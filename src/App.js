@@ -1,41 +1,64 @@
 import { useRef, useState } from "react";
-import { CSSTransition, SwitchTransition } from "react-transition-group";
+import {
+  CSSTransition,
+  SwitchTransition,
+  TransitionGroup,
+} from "react-transition-group";
 import "./App.css";
 import { useEffect } from "react";
+import { createRef } from "react";
 function App() {
-  const [current, setCurrent] = useState(1);
-  const component1Ref = useRef(null);
-  const component2Ref = useRef(null);
-
-  let nodeRef = component1Ref;
-
-  let content = "😜";
-  if (current === 1) {
-    nodeRef = component1Ref;
-    content = "😜";
-  }
-  if (current === 2) {
-    nodeRef = component2Ref;
-    content = "😆";
-  }
+  const [listData, setListData] = useState([
+    { id: 1, value: 1, nodeRef: useRef(null) },
+    { id: 2, value: 2, nodeRef: useRef(null) },
+    { id: 3, value: 3, nodeRef: useRef(null) },
+  ]);
 
   return (
     <main className="container">
-      <button onClick={() => setCurrent((current) => (current === 1 ? 2 : 1))}>
-        切换
+      <ul>
+        <TransitionGroup>
+          {listData.map(({ id, value, nodeRef }) => (
+            <CSSTransition
+              key={id}
+              nodeRef={nodeRef}
+              classNames="fade"
+              timeout={1000}
+            >
+              <li ref={nodeRef}>
+                {value}{" "}
+                <button
+                  onClick={() =>
+                    setListData((data) => data.filter((item) => item.id !== id))
+                  }
+                  style={{
+                    padding: "4px",
+                    marginLeft: "8px",
+                    border: "4px",
+                    backgroundColor: "transparent",
+                  }}
+                >
+                  删除
+                </button>
+              </li>
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
+      </ul>
+      <button
+        onClick={() => {
+          setListData((data) => [
+            ...data,
+            {
+              id: data.length + 1,
+              value: data.length + 1,
+              nodeRef: createRef(null),
+            },
+          ]);
+        }}
+      >
+        添加项目
       </button>
-      <SwitchTransition mode="out-in">
-        <CSSTransition
-          key={current}
-          nodeRef={nodeRef}
-          classNames="fade"
-          addEndListener={(done) => {
-            nodeRef.current.addEventListener("transitionend", done, false);
-          }}
-        >
-          <div ref={nodeRef}>{content}</div>
-        </CSSTransition>
-      </SwitchTransition>
     </main>
   );
 }
