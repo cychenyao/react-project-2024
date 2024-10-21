@@ -1,4 +1,4 @@
-import { Form, redirect, useLoaderData } from "react-router-dom";
+import { Form, redirect, useLoaderData, useNavigate } from "react-router-dom";
 import "./style.css";
 
 export async function action({ request, params }) {
@@ -28,6 +28,7 @@ export async function loader({ params }) {
 
 function NoteForm() {
   const note = useLoaderData();
+  const navigate = useNavigate();
 
   return (
     <div className="addNote">
@@ -47,6 +48,9 @@ function NoteForm() {
         ></textarea>
         <div className="formActions">
           <button type="submit">{note ? "保存笔记" : "添加笔记"}</button>
+          <button type="button" onClick={() => navigate(-1)}>
+            返回
+          </button>
         </div>
       </Form>
     </div>

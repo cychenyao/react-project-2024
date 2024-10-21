@@ -1,33 +1,34 @@
 import "./App.css";
-import NoteList from "./components/NoteList";
-import SearchNote from "./components/SearchNote";
 import { Form, Outlet, useLoaderData } from "react-router-dom";
+import ThemeSwitcher from "./components/ThemeSwitcher";
+import { ThemeProvider,useTheme } from "./context/ThemeContext";
 
-export async function loader() {
-  return fetch("http://localhost:8080/notes");
+export async function loader({ request }) {
+  const url = new URL(request.url);
+  return fetch(`http://localhost:8080/notes?${url.searchParams}`);
 }
 
 function App() {
   const notes = useLoaderData();
-
   return (
-    <div className="container">
-      <aside className="sidebar">
-        <h1 className="logo">我的笔记本</h1>
-        <SearchNote />
-        <Form action="notes/new">
-        <button type="submit" className="addNoteBtn">
-          添加笔记
-        </button>
-        </Form>
-        <NoteList notes={notes} />
-      </aside>
-
-      <main className="mainContent">
-        <Outlet />
-      </main>
-    </div>
+    <ThemeProvider>
+      <div className="container">
+        <div>
+          <h1>
+            主题切换
+          </h1>
+          <ThemeSwitcher
+          />
+        </div>
+        <DisplayTheme />
+      </div>
+    </ThemeProvider>
   );
+}
+
+function DisplayTheme(){
+  const {theme} = useTheme();
+  return <p>当前主题：{theme}</p>
 }
 
 export default App;
