@@ -1,34 +1,21 @@
 import "./App.css";
-import { Form, Outlet, useLoaderData } from "react-router-dom";
-import ThemeSwitcher from "./components/ThemeSwitcher";
-import { ThemeProvider,useTheme } from "./context/ThemeContext";
-
-export async function loader({ request }) {
-  const url = new URL(request.url);
-  return fetch(`http://localhost:8080/notes?${url.searchParams}`);
-}
+import NoteList from "./components/NoteList";
+import { NotesProvider } from "./contexts/NoteContext";
+import AddNote from "./components/AddNote";
+import EffectComponent from "./components/EffectComponent";
+import Example from './components/Example';
 
 function App() {
-  const notes = useLoaderData();
   return (
-    <ThemeProvider>
-      <div className="container">
-        <div>
-          <h1>
-            主题切换
-          </h1>
-          <ThemeSwitcher
-          />
-        </div>
-        <DisplayTheme />
-      </div>
-    </ThemeProvider>
+    <NotesProvider>
+      <main className="container">
+        {/* <EffectComponent /> */}
+        <Example />
+        <NoteList />
+        <AddNote />
+      </main>
+    </NotesProvider>
   );
-}
-
-function DisplayTheme(){
-  const {theme} = useTheme();
-  return <p>当前主题：{theme}</p>
 }
 
 export default App;
